@@ -2,8 +2,12 @@ import WRPlayerDataArray from "../../../dataAndR_files/WRPlayerData1.js";
 import wrDataAndIDsArray from "../../../dataAndR_files/justWRNamesAndIDs.js";
 import PFR2000WRData from "../../../dataAndR_files/PFRWRData/00WRDataPFR.js";
 import PFR2001WRData from "../../../dataAndR_files/PFRWRData/01WRDataPFR.js";
-import PFR2002WRData from "../../../dataAndR_files/PFRWRData/01WRDataPFR.js";
-
+import PFR2002WRData from "../../../dataAndR_files/PFRWRData/02WRDataPFR.js";
+import PFR2003WRData from "../../../dataAndR_files/PFRWRData/03WRDataPFR.js";
+import PFR2004WRData from "../../../dataAndR_files/PFRWRData/04WRDataPFR.js";
+import PFR2005WRData from "../../../dataAndR_files/PFRWRData/05WRDataPFR.js";
+import PFR2006WRData from "../../../dataAndR_files/PFRWRData/06WRDataPFR.js";
+import PFR2007WRData from "../../../dataAndR_files/PFRWRData/07WRDataPFR.js";
 import PFR2008WRData from "../../../dataAndR_files/PFRWRData/08WRData.js";
 
 let WRPlayerStatsArray = [];
@@ -22,6 +26,29 @@ PFR2001WRData.map((pfr01Player) => {
 PFR2002WRData.map((pfr02Player) => {
   pfr02Player.season = 2002;
   // console.log(pfr02Player);
+});
+
+PFR2003WRData.map((pfr03Player) => {
+  pfr03Player.season = 2003;
+  // console.log(pfr03Player);
+});
+
+PFR2004WRData.map((pfr04Player) => {
+  pfr04Player.season = 2004;
+  // console.log(pfr04Player);
+});
+
+PFR2005WRData.map((pfr05Player) => {
+  pfr05Player.season = 2005;
+  // console.log(pfr05Player);
+});
+PFR2006WRData.map((pfr06Player) => {
+  pfr06Player.season = 2006;
+  // console.log(pfr06Player);
+});
+PFR2007WRData.map((pfr07Player) => {
+  pfr07Player.season = 2007;
+  console.log(pfr07Player);
 });
 
 PFR2008WRData.map((pfr08Player) => {
