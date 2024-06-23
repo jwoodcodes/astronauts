@@ -10,11 +10,16 @@
   },
   "type": "module",
   "dependencies": {
+    "@ag-grid-community/core": "^31.3.2",
+    "@tanstack/react-table": "^8.17.3",
+    "ag-grid-react": "^31.3.2",
+    "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/node": "20.14.5",
+    "@types/react": "18.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.3"
   }

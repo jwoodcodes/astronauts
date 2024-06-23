@@ -1123,6 +1123,22 @@ allCombineData <- combine23 %>%
 #view(allCombineData)
 
 
+#
+#
+#
+# snap counts 
+# 
+#
+
+all_snap_counts <- load_snap_counts(2012:2023)
+
+all_WR_SnapsData <- all_snap_counts %>% filter(position == "WR", game_type == "REG")
+
+
+
+view(all_WR_SnapsData)
+
+write.csv(all_WR_SnapsData, 'C:/Users/jkwoo/astronauts/astronuats/dataAndR_files/allWRSnapsData2012to2023.csv')
 
 
 
