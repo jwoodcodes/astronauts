@@ -331,6 +331,11 @@ fromPreviousAstronautsWRData.map((p) => {
   p.Targets = +p.Targets;
   p["Targets/G"] = +p["Targets/G"];
   p["Target %"] = +p["Target %"].slice(0, -1);
+  p["Catch %"] = +p["Catch %"].slice(0, -1);
+  if (!+p["Catch %"]) {
+    p["Catch %"] = 0;
+  }
+  p.REC = +p.REC;
   // console.log(typeof +p.Routes);
 });
 
