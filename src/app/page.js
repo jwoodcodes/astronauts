@@ -8,6 +8,7 @@ import WRPlayerStatsArray from "./data work/buildingAllWRsDataset";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
+import { Content } from "next/font/google";
 
 // import { ModuleRegistry } from "@ag-grid-community/core";
 // import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
@@ -26,72 +27,114 @@ export default function Home() {
       field: "Player",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      pinned: "left",
     },
     {
       field: "Season",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
     },
 
     {
       field: "Team",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 90,
     },
     {
       field: "Age",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 80,
     },
     {
       field: "CareerYr",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
     },
     {
       field: "GP",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 80,
     },
     {
       field: "Snaps",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 90,
     },
     {
       field: "Snaps/GP",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
     },
     {
       field: "Snap %",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
     },
     {
       field: "Routes",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
     },
     {
       field: "Routes/G",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
     },
     {
       field: "Targets",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
     },
     {
       field: "Targets/G",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
     },
     {
       field: "Target %",
       filter: true,
       floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
+    },
+    {
+      field: "Catch %",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
+    {
+      field: "REC",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 80,
     },
   ]);
 
@@ -112,7 +155,7 @@ export default function Home() {
       <div className={styles.pageTitle}> Filterable WR Database</div>
       <div
         className="ag-theme-quartz-dark" // applying the grid theme
-        style={{ height: 1000 }} // the grid will fill the size of the parent container
+        style={{ height: 1000 }}
       >
         <AgGridReact rowData={rowData} columnDefs={colDefs} />
       </div>
