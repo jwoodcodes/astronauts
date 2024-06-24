@@ -303,11 +303,20 @@ result.map((player) => {
   }
 });
 
+// WRPlayerStatsArray.map((player) => {
+//   if (player['"season"'].slice(1, -1) === 2023) {
+//     fromPreviousAstronautsWRData.map((p) => {
+//       // console.log(p.Player, player['"player_name"'].slice(1, -1));
+//     });
+//     console.log(player);
+//   }
+// });
+
 fromPreviousAstronautsWRData.map((p) => {
   // console.log(p);
   p.Season = +p.Season;
   p.Age = +p.Age;
-  p.CareerYr = +p.CareerYr;
+  p.NFLYr = +p.CareerYr;
   p.GP = +p.GP;
   p.Snaps = +p.Snaps;
   p["Snaps/GP"] = +p["Snaps/GP"];
@@ -323,6 +332,7 @@ fromPreviousAstronautsWRData.map((p) => {
   p.Routes = +p.Routes;
   if (!+p.Routes) {
     p.Routes = 0;
+    p["Targets/Route"] = 0;
   }
   p["Routes/G"] = +p["Routes/G"];
   if (!+p["Routes/G"]) {
@@ -331,12 +341,44 @@ fromPreviousAstronautsWRData.map((p) => {
   p.Targets = +p.Targets;
   p["Targets/G"] = +p["Targets/G"];
   p["Target %"] = +p["Target %"].slice(0, -1);
+  p["Targets/Route"] = +p["Targets/Route"];
   p["Catch %"] = +p["Catch %"].slice(0, -1);
   if (!+p["Catch %"]) {
     p["Catch %"] = 0;
   }
   p.REC = +p.REC;
+  p["REC/G"] = +p["REC/G"];
+  p["REC Yards"] = +p["REC Yards"];
+  p["Yards/REC"] = +p["Yards/REC"];
+  p["REC TDs"] = +p["REC TDs"];
+  p["REC 1Ds"] = +p["REC 1st Downs"];
   // console.log(typeof +p.Routes);
+  let temp1DPerTarget = +(+p["REC 1Ds"] / +p.Targets).toFixed(3);
+  p["1D/Target"] = +temp1DPerTarget;
+  let temp1DPerRoute = +(+p["REC 1Ds"] / +p.Routes).toFixed(3);
+  p["1D/RR"] = +temp1DPerRoute;
+  if (!+p.Routes) {
+    p["1D/RR"] = 0;
+  }
+  p["Air Yards"] = +p["Air Yards"];
+  if (!+p["Air Yards"]) {
+    p["Air Yards"] = 0;
+    p["1D/AirYard"] = 0;
+  }
+  if (p["1D/AirYard"] !== 0) {
+    let temp1DPerAirYard = +(+p["REC 1Ds"] / +p["Air Yards"]).toFixed(3);
+    p["1D/AirYard"] = +temp1DPerAirYard;
+  }
+  p.aDOT = +p.aDOT;
+  if (!+p.aDOT) {
+    p.aDOT = 0;
+  }
+
+  //
+  //
+  //
+  //
+  //
 });
 
 WRPlayerStatsArray = fromPreviousAstronautsWRData;
