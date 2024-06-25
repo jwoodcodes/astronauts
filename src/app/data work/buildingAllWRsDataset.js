@@ -29,6 +29,13 @@ import allWRSnapsData2012to2023 from "../../../dataAndR_files/allWRSnapsData2012
 
 import fromPreviousAstronautsWRData from "../../../dataAndR_files/fromPreviousAstronautsWRData.js";
 
+import PFF2023WRData from "../../../dataAndR_files/PFFWRData/PFF2023WRData.js";
+import PFF2023WRRunBlockingData from "../../../dataAndR_files/PFFWRData/PFF2023WRRunBlockingData.js";
+import { RSC_PREFETCH_SUFFIX } from "next/dist/lib/constants.js";
+
+import RVTeamOffensiveSnaps2023 from "../../../dataAndR_files/RVTeamOffensiveSnaps2023.js";
+import allTargetShareDataFor2023 from "../../../dataAndR_files/allWRTargetShareDataFor2023.js";
+
 const curYear = new Date().getFullYear();
 
 PFR2000WRData.map((pfr00Player) => {
@@ -204,24 +211,6 @@ allPFRWRData.map((player) => {
 ///
 //
 
-// allWRSnapsData2012to2023.map((snap) => {
-//   // console.log(snap);
-//   let tempSnapsInSeason = 0;
-//   if (player.Player === snap["'player'"]) {
-//     if (player.season === snap["'season'"]) {
-//       // console.log(snap);
-//       // console.log(snap['"offense_snaps"']);
-//       if (player.snaps) {
-//         player.snaps = +player.snaps + +snap['"offense_snaps"'];
-//       }
-//       if (!player.snaps) {
-//         player.snaps = +snap['"offense_snaps"'];
-//       }
-//     }
-//   }
-//   // console.log(player);
-// });
-
 //
 ///
 ////
@@ -271,12 +260,17 @@ let result = WRPlayerStatsArray.filter(
 result.map((player) => {
   // console.log(player);
   // console.log(player['"player_name"']);
+
+  //
+  //
+  //
   allPFRWRData.map((pfrPlayer) => {
     if (player['"player_name"'].slice(1, -1) === pfrPlayer.Player) {
       // console.log(pfrPlayer);
       // console.log(player['"season"']);
       if (+player['"season"'].slice(1, -1) === pfrPlayer.season) {
-        // console.log(player, pfrPlayer);
+        // console.log(pfrPlayer.Tm);
+
         let tempdbIDOne = player['""'];
         let tempdbIDtwo = +tempdbIDOne.slice(1, -1);
         player.dbID = tempdbIDtwo;
@@ -294,91 +288,236 @@ result.map((player) => {
         player.yardsPerTarget = pfrPlayer["Y/Tgt"];
         player.receptionsPerGame = pfrPlayer["R/G"];
         player.yardsPerGame = pfrPlayer["Y/G"];
+
+        if (pfrPlayer.Tm === "LAR") {
+          // console.log(pfrPlayer);
+          player.team = "LAR";
+          player['"Tm"'] = '"LAR"';
+          // console.log(player);
+        }
       }
     }
   });
+});
 
-  if (player['"player_name"'] === '"Donald Driver"') {
+let tempYearInLeague2023 = 0;
+
+result.map((player) => {
+  fromPreviousAstronautsWRData.map((p) => {
+    if (p.Player === player['"player_name"'].slice(1, -1)) {
+      // console.log(p);
+
+      // console.log(curYear, p["Draft Yr"]);
+
+      player.careerYearIn2023WillBe = curYear - p["Draft Yr"];
+      // counter += 1;
+      tempYearInLeague2023 = curYear - p["Draft Yr"];
+    }
+
+    // console.log(p.Player, player['"player_name"'].slice(1, -1));
+  });
+
+  // console.log(player);
+  if (+player['"season"'].slice(1, -1) === 2023) {
+    // console.log(player);
+
+    RVTeamOffensiveSnaps2023.map((team) => {
+      // console.log(player['"Tm"'].slice(1, -1));
+
+      if (player['"Tm"'].slice(1, -1) === team['"Team"'].slice(1, -1)) {
+        // console.log(team);
+        // console.log(team['"Team"'].slice(1, -1));
+        // console.log(player['"player_name"'].slice(1, -1), team["Team"]);
+        // console.log(+team['"TotPlays"'], typeof +team['"TotPlays"']);
+        let teamSnapsPerGame = +team['"TotPlays"'] / 17;
+        player.teamSnapsPerGame2023 = +teamSnapsPerGame;
+        // console.log(+team['"Pass%"'].slice(1, -2));
+        let totalTeamPassPlays = +team['"Pass%"'].slice(1, -2) / 100;
+        player.totalTeamPassPlays2023 =
+          totalTeamPassPlays * +team['"TotPlays"'];
+      }
+      // console.log(player);
+    });
+
+    PFF2023WRData.map((pffPlayer) => {
+      // console.log(pffPlayer.player);
+      if (player['"player_name"'].slice(1, -1) === pffPlayer.player) {
+        // console.log(pffPlayer);
+
+        // console.log(player);
+
+        PFF2023WRRunBlockingData.map((pffRunBlock) => {
+          if (player['"player_name"'].slice(1, -1) === pffRunBlock.player) {
+            // console.log(pffRunBlock);
+            if (!pffPlayer.totalSnaps || pffPlayer.totalSnaps === 0) {
+              pffPlayer.totalSnaps =
+                +pffRunBlock.snap_counts_run_play + +pffPlayer.pass_plays;
+            }
+          }
+        });
+
+        //
+
+        allTargetShareDataFor2023.map((targetShare) => {
+          // console.log(targetShare.NAME);
+          if (
+            player['"player_name"'].slice(1, -1) ===
+            targetShare["NAME"].slice(1, -1)
+          ) {
+            // console.log(
+            //   +targetShare["TM TGT %"],
+            //   typeof +targetShare["TM TGT %"]
+            // );
+            player.targetShare2023 = +targetShare["TM TGT %"];
+          }
+        });
+
+        if (!player.careerYearIn2023WillBe) {
+          player.careerYearIn2023WillBe = 1;
+        }
+        if (player['"player_name"'].slice(1, -1) === "A.J. Brown") {
+          player.careerYearIn2023WillBe = 5;
+        }
+        if (player['"player_name"'].slice(1, -1) === "Amon-Ra St. Brown") {
+          player.careerYearIn2023WillBe = 3;
+        }
+        if (player['"player_name"'].slice(1, -1) === "Mike Williams") {
+          player.careerYearIn2023WillBe = 7;
+        }
+        if (player['"player_name"'].slice(1, -1) === "K.J. Osborn") {
+          player.careerYearIn2023WillBe = 4;
+        }
+        if (player['"player_name"'].slice(1, -1) === "Robbie Chosen") {
+          player.careerYearIn2023WillBe = 8;
+        }
+        if (player['"player_name"'].slice(1, -1) === "Equanimeous St. Brown") {
+          player.careerYearIn2023WillBe = 6;
+        }
+
+        // console.log(
+        //   player['"player_name"'].slice(1, -1),
+        //   player.careerYearIn2023WillBe,
+        //   typeof player.careerYearIn2023WillBe
+        // );
+
+        let snapsPerGame = +(
+          +pffPlayer.totalSnaps / +player['"Games"']
+        ).toFixed(1);
+
+        let snapPercent2023 = +(
+          snapsPerGame / +player.teamSnapsPerGame2023
+        ).toFixed(3);
+
+        // console.log(
+        //   +player.teamTotalOffensiveSnaps2023,
+        //   +pffPlayer.totalSnaps,
+        //   snapPercent2023
+        // );
+        // console.log(player);
+
+        fromPreviousAstronautsWRData.push({
+          Player: player['"player_name"'].slice(1, -1),
+          Season: +player['"season"'].slice(1, -1),
+          Team: player['"Tm"'].slice(1, -1),
+          Age: +player.age,
+          NFLYr: player.careerYearIn2023WillBe,
+          GP: +player['"Games"'],
+          Snaps: pffPlayer.totalSnaps,
+          "Snaps/GP": +(+pffPlayer.totalSnaps / +player['"Games"']).toFixed(1),
+          ["Snap %"]: +(snapPercent2023 * 100).toFixed(1),
+          Routes: +pffPlayer.routes,
+          ["Routes/G"]: +(+pffPlayer.routes / +player['"Games"']).toFixed(1),
+          Targets: +pffPlayer.targets,
+          ["Targets/G"]: +(+pffPlayer.targets / +player['"Games"']).toFixed(1),
+          ["Target %"]: player.targetShare2023,
+          ["Targets/Route"]: +(+pffPlayer.targets / +pffPlayer.routes).toFixed(
+            3
+          ),
+        });
+      }
+    });
+
+    // console.log(player['"player_name"'].slice(1, -1), counter);
     // console.log(player);
   }
 });
 
-// WRPlayerStatsArray.map((player) => {
-//   if (player['"season"'].slice(1, -1) === 2023) {
-//     fromPreviousAstronautsWRData.map((p) => {
-//       // console.log(p.Player, player['"player_name"'].slice(1, -1));
-//     });
-//     console.log(player);
-//   }
-// });
-
 fromPreviousAstronautsWRData.map((p) => {
   // console.log(p);
-  p.Season = +p.Season;
-  p.Age = +p.Age;
-  p.NFLYr = +p.CareerYr;
-  p.GP = +p.GP;
-  p.Snaps = +p.Snaps;
-  p["Snaps/GP"] = +p["Snaps/GP"];
-  if (!+p.Snaps) {
-    p.Snaps = 0;
-    p["Snaps/GP"] = 0;
-  }
+  if (p.Season !== 2023) {
+    p.Season = +p.Season;
+    p.Age = +p.Age;
+    p.NFLYr = +p.CareerYr;
+    p.GP = +p.GP;
+    p.Snaps = +p.Snaps;
+    p["Snaps/GP"] = +p["Snaps/GP"];
+    if (!+p.Snaps) {
+      p.Snaps = 0;
+      p["Snaps/GP"] = 0;
+    }
+    p["Snap %"] = +p["Snap %"].slice(0, -1);
+    if (!+p["Snap %"]) {
+      p["Snap %"] = 0;
+    }
 
-  p["Snap %"] = +p["Snap %"].slice(0, -1);
-  if (!+p["Snap %"]) {
-    p["Snap %"] = 0;
-  }
-  p.Routes = +p.Routes;
-  if (!+p.Routes) {
-    p.Routes = 0;
-    p["Targets/Route"] = 0;
-  }
-  p["Routes/G"] = +p["Routes/G"];
-  if (!+p["Routes/G"]) {
-    p["Routes/G"] = 0;
-  }
-  p.Targets = +p.Targets;
-  p["Targets/G"] = +p["Targets/G"];
-  p["Target %"] = +p["Target %"].slice(0, -1);
-  p["Targets/Route"] = +p["Targets/Route"];
-  p["Catch %"] = +p["Catch %"].slice(0, -1);
-  if (!+p["Catch %"]) {
-    p["Catch %"] = 0;
-  }
-  p.REC = +p.REC;
-  p["REC/G"] = +p["REC/G"];
-  p["REC Yards"] = +p["REC Yards"];
-  p["Yards/REC"] = +p["Yards/REC"];
-  p["REC TDs"] = +p["REC TDs"];
-  p["REC 1Ds"] = +p["REC 1st Downs"];
-  // console.log(typeof +p.Routes);
-  let temp1DPerTarget = +(+p["REC 1Ds"] / +p.Targets).toFixed(3);
-  p["1D/Target"] = +temp1DPerTarget;
-  let temp1DPerRoute = +(+p["REC 1Ds"] / +p.Routes).toFixed(3);
-  p["1D/RR"] = +temp1DPerRoute;
-  if (!+p.Routes) {
-    p["1D/RR"] = 0;
-  }
-  p["Air Yards"] = +p["Air Yards"];
-  if (!+p["Air Yards"]) {
-    p["Air Yards"] = 0;
-    p["1D/AirYard"] = 0;
-  }
-  if (p["1D/AirYard"] !== 0) {
-    let temp1DPerAirYard = +(+p["REC 1Ds"] / +p["Air Yards"]).toFixed(3);
-    p["1D/AirYard"] = +temp1DPerAirYard;
-  }
-  p.aDOT = +p.aDOT;
-  if (!+p.aDOT) {
-    p.aDOT = 0;
-  }
+    p.Routes = +p.Routes;
+    if (!+p.Routes) {
+      p.Routes = 0;
+      p["Targets/Route"] = 0;
+    }
+    p["Routes/G"] = +p["Routes/G"];
+    if (!+p["Routes/G"]) {
+      p["Routes/G"] = 0;
+    }
 
+    p.Targets = +p.Targets;
+    p["Targets/G"] = +p["Targets/G"];
+    p["Target %"] = +p["Target %"].slice(0, -1);
+    p["Targets/Route"] = +p["Targets/Route"];
+
+    //
+
+    p["Catch %"] = +p["Catch %"].slice(0, -1);
+    if (!+p["Catch %"]) {
+      p["Catch %"] = 0;
+    }
+    p.REC = +p.REC;
+    p["REC/G"] = +p["REC/G"];
+    p["REC Yards"] = +p["REC Yards"];
+    p["Yards/REC"] = +p["Yards/REC"];
+    p["REC TDs"] = +p["REC TDs"];
+    p["REC 1Ds"] = +p["REC 1st Downs"];
+    // console.log(typeof +p.Routes);
+    let temp1DPerTarget = +(+p["REC 1Ds"] / +p.Targets).toFixed(3);
+    p["1D/Target"] = +temp1DPerTarget;
+    let temp1DPerRoute = +(+p["REC 1Ds"] / +p.Routes).toFixed(3);
+    p["1D/RR"] = +temp1DPerRoute;
+    if (!+p.Routes) {
+      p["1D/RR"] = 0;
+    }
+    p["Air Yards"] = +p["Air Yards"];
+    if (!+p["Air Yards"]) {
+      p["Air Yards"] = 0;
+      p["1D/AirYard"] = 0;
+    }
+    if (p["1D/AirYard"] !== 0) {
+      let temp1DPerAirYard = +(+p["REC 1Ds"] / +p["Air Yards"]).toFixed(3);
+      p["1D/AirYard"] = +temp1DPerAirYard;
+    }
+    p.aDOT = +p.aDOT;
+    if (!+p.aDOT) {
+      p.aDOT = 0;
+    }
+  }
   //
   //
   //
   //
   //
+
+  if (p.Season === 2023) {
+    console.log(p);
+  }
 });
 
 WRPlayerStatsArray = fromPreviousAstronautsWRData;
