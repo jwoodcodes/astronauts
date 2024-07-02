@@ -124,11 +124,11 @@ export default function Home() {
       maxWidth: 120,
     },
     {
-      field: "Targets/Route",
+      field: "TPRR",
       filter: true,
       floatingFilter: true,
       // flex: 1,
-      maxWidth: 140,
+      maxWidth: 100,
     },
     {
       field: "Catch %",
@@ -164,6 +164,13 @@ export default function Home() {
       floatingFilter: true,
       // flex: 1,
       maxWidth: 120,
+    },
+    {
+      field: "YPRR",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
     },
 
     {
