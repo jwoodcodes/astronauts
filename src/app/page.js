@@ -68,6 +68,21 @@ export default function Home() {
       maxWidth: 90,
     },
     {
+      field: "PPR",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 90,
+    },
+    {
+      field: "PPR/G",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 90,
+    },
+
+    {
       field: "Snaps",
       filter: true,
       floatingFilter: true,

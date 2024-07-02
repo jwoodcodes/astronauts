@@ -35,6 +35,7 @@ import { RSC_PREFETCH_SUFFIX } from "next/dist/lib/constants.js";
 
 import RVTeamOffensiveSnaps2023 from "../../../dataAndR_files/RVTeamOffensiveSnaps2023.js";
 import allTargetShareDataFor2023 from "../../../dataAndR_files/allWRTargetShareDataFor2023.js";
+import { Rationale } from "next/font/google/index.js";
 
 const curYear = new Date().getFullYear();
 
@@ -425,6 +426,7 @@ result.map((player) => {
         //   snapPercent2023
         // );
         // console.log(player);
+        // console.log(player['"PPR_Points"']);
 
         fromPreviousAstronautsWRData.push({
           Player: player['"player_name"'].slice(1, -1),
@@ -433,6 +435,8 @@ result.map((player) => {
           Age: +player.age,
           NFLYr: player.careerYearIn2023WillBe,
           GP: +player['"Games"'],
+          PPR: +player['"PPR_Points"'],
+          ["PPR/G"]: +player['"FPPG"'],
           Snaps: pffPlayer.totalSnaps,
           "Snaps/GP": +(+pffPlayer.totalSnaps / +player['"Games"']).toFixed(1),
           ["Snap %"]: +(snapPercent2023 * 100).toFixed(1),
@@ -475,6 +479,8 @@ fromPreviousAstronautsWRData.map((p) => {
     p.Age = +p.Age;
     p.NFLYr = +p.CareerYr;
     p.GP = +p.GP;
+    p.PPR = +p["PPR Total"];
+    p["PPR/G"] = +p["PPG"];
     p.Snaps = +p.Snaps;
     p["Snaps/GP"] = +p["Snaps/GP"];
     if (!+p.Snaps) {
@@ -540,6 +546,18 @@ fromPreviousAstronautsWRData.map((p) => {
       p.aDOT = 0;
     }
   }
+  //
+  // things I still want to add
+
+  // contested catch Rate
+  // slot rate
+  // wide rate
+  // QB rating
+  // EPA
+  // RACR
+  // WOPR
+  // player_id
+
   //
   //
   //
