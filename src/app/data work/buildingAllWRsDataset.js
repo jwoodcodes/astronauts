@@ -408,6 +408,17 @@ result.map((player) => {
           snapsPerGame / +player.teamSnapsPerGame2023
         ).toFixed(3);
 
+        let tempCatchPercentTwo = 0;
+
+        if (player.catchPercentage) {
+          let tempCatchPercentOne = player.catchPercentage;
+          tempCatchPercentTwo = tempCatchPercentOne.slice(0, -1);
+        }
+
+        let tempADotOne = pffPlayer.avg_depth_of_target;
+        let tempADoTTwo = tempADotOne.slice(1, -1);
+
+        // console.log(tempCatchPercentTwo);
         // console.log(
         //   +player.teamTotalOffensiveSnaps2023,
         //   +pffPlayer.totalSnaps,
@@ -430,9 +441,24 @@ result.map((player) => {
           Targets: +pffPlayer.targets,
           ["Targets/G"]: +(+pffPlayer.targets / +player['"Games"']).toFixed(1),
           ["Target %"]: player.targetShare2023,
-          ["Targets/Route"]: +(+pffPlayer.targets / +pffPlayer.routes).toFixed(
-            3
+          ["TPRR"]: +(+pffPlayer.targets / +pffPlayer.routes).toFixed(3),
+          ["Catch %"]: +tempCatchPercentTwo,
+          REC: +player.receptions,
+          ["REC/G"]: +(+player.receptions / +player['"Games"']).toFixed(1),
+          ["REC Yards"]: +player['"Rec_Yards"'],
+          ["Yards/REC"]: +(+player['"Rec_Yards"'] / +player.receptions).toFixed(
+            1
           ),
+          ["YPRR"]: +(+player['"Rec_Yards"'] / +pffPlayer.routes).toFixed(2),
+          ["REC TDs"]: +pffPlayer.touchdowns,
+          ["REC 1Ds"]: +player.firstDowns,
+          ["1D/Target"]: +(+player.firstDowns / +pffPlayer.targets).toFixed(3),
+          ["1D/RR"]: +(+player.firstDowns / +pffPlayer.routes).toFixed(3),
+          ["Air Yards"]: +player['"Air_Yards"'],
+          ["1D/AirYard"]: +(
+            +player.firstDowns / +player['"Air_Yards"']
+          ).toFixed(3),
+          aDOT: +tempADotOne,
         });
       }
     });
@@ -465,6 +491,7 @@ fromPreviousAstronautsWRData.map((p) => {
       p.Routes = 0;
       p["Targets/Route"] = 0;
     }
+
     p["Routes/G"] = +p["Routes/G"];
     if (!+p["Routes/G"]) {
       p["Routes/G"] = 0;
@@ -473,7 +500,7 @@ fromPreviousAstronautsWRData.map((p) => {
     p.Targets = +p.Targets;
     p["Targets/G"] = +p["Targets/G"];
     p["Target %"] = +p["Target %"].slice(0, -1);
-    p["Targets/Route"] = +p["Targets/Route"];
+    p["TPRR"] = +p["Targets/Route"];
 
     //
 
@@ -485,6 +512,10 @@ fromPreviousAstronautsWRData.map((p) => {
     p["REC/G"] = +p["REC/G"];
     p["REC Yards"] = +p["REC Yards"];
     p["Yards/REC"] = +p["Yards/REC"];
+    p["YPRR"] = +(+p["REC Yards"] / p.Routes).toFixed(2);
+    if (!+p.Routes) {
+      p["YPRR"] = 0;
+    }
     p["REC TDs"] = +p["REC TDs"];
     p["REC 1Ds"] = +p["REC 1st Downs"];
     // console.log(typeof +p.Routes);
@@ -516,7 +547,7 @@ fromPreviousAstronautsWRData.map((p) => {
   //
 
   if (p.Season === 2023) {
-    console.log(p);
+    // console.log(p);
   }
 });
 
