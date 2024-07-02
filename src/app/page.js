@@ -237,6 +237,21 @@ export default function Home() {
       // flex: 1,
       maxWidth: 90,
     },
+    {
+      field: "CT %",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
+
+    {
+      field: "slot Rate",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
   ]);
 
   const gridOptions = {

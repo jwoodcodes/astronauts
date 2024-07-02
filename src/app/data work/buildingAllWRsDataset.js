@@ -463,6 +463,8 @@ result.map((player) => {
             +player.firstDowns / +player['"Air_Yards"']
           ).toFixed(3),
           aDOT: +tempADotOne,
+          ["CT %"]: +pffPlayer.contested_targets,
+          ["slot Rate"]: +pffPlayer.slot_rate,
         });
       }
     });
@@ -545,11 +547,18 @@ fromPreviousAstronautsWRData.map((p) => {
     if (!+p.aDOT) {
       p.aDOT = 0;
     }
+    p["CT %"] = +p["Contested Targets"];
+    if (!+p["Contested Targets"]) {
+      p["CT %"] = 0;
+    }
+    p["slot Rate"] = +p["Slot %"];
+    // if (!+p["Slot %"]) {
+    //   p["slot Rate"] = "-";
+    // }
   }
   //
   // things I still want to add
 
-  // contested catch Rate
   // slot rate
   // wide rate
   // QB rating
