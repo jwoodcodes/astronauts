@@ -428,6 +428,14 @@ result.map((player) => {
         // console.log(player);
         // console.log(player['"PPR_Points"']);
 
+        if (!+player['"WOPR"']) {
+          player['"WOPR"'] = 0;
+        }
+
+        if (!+player['"EPA"']) {
+          player['"EPA"'] = 0;
+        }
+
         fromPreviousAstronautsWRData.push({
           Player: player['"player_name"'].slice(1, -1),
           Season: +player['"season"'].slice(1, -1),
@@ -465,6 +473,10 @@ result.map((player) => {
           aDOT: +tempADotOne,
           ["CT %"]: +pffPlayer.contested_targets,
           ["slot Rate"]: +pffPlayer.slot_rate,
+          ["REC EPA/G"]: +(+player['"EPA"'] / +player['"Games"']).toFixed(2),
+          RACR: +(+player['"RACR"']).toFixed(2),
+          WOPR: +(+player['"WOPR"']).toFixed(2),
+          ["QB Rating"]: +pffPlayer.targeted_qb_rating,
         });
       }
     });
@@ -551,20 +563,30 @@ fromPreviousAstronautsWRData.map((p) => {
     if (!+p["Contested Targets"]) {
       p["CT %"] = 0;
     }
-    p["slot Rate"] = +p["Slot %"];
+    p["slot Rate"] = +p["Slot %"].slice(0, -1);
     // if (!+p["Slot %"]) {
     //   p["slot Rate"] = "-";
     // }
+    p["REC EPA/G"] = +(p["REC EPA"] / +p.GP).toFixed(2);
+    p.RACR = +p.RACR;
+    if (!+p.RACR) {
+      p.RACR = 0;
+    }
+    p.WOPR = +(+p.WOPR.slice(0, -1) / 100).toFixed(3);
+    if (!+p.WOPR) {
+      p.WOPR = 0;
+    }
+    p["QB Rating"] = +p["Targeted QB Rating"];
+    if (!+p["Targeted QB Rating"]) {
+      p["QB Rating"] = 0;
+    }
   }
   //
   // things I still want to add
 
-  // slot rate
-  // wide rate
-  // QB rating
-  // EPA
-  // RACR
-  // WOPR
+  // year n + 1 PPR per game
+  //  'AVG Seperation'
+
   // player_id
 
   //

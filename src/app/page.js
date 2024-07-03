@@ -36,6 +36,7 @@ export default function Home() {
       filter: true,
       floatingFilter: true,
       // flex: 1,
+      pinned: "left",
       maxWidth: 100,
     },
 
@@ -247,6 +248,35 @@ export default function Home() {
 
     {
       field: "slot Rate",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
+
+    {
+      field: "REC EPA/G",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
+    {
+      field: "RACR",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
+    {
+      field: "WOPR",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
+    {
+      field: "QB Rating",
       filter: true,
       floatingFilter: true,
       // flex: 1,
