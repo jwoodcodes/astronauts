@@ -436,9 +436,18 @@ result.map((player) => {
           player['"EPA"'] = 0;
         }
 
+        // N + 1
+        // if (p.nextSeason) {
+        //   p["N+1 PPR/G"] = p.nextSeason["PPR/G"];
+        // }
+        // if (!p.nextSeason) {
+        //   p["N+1 PPR/G"] = "-";
+        // }
+
         fromPreviousAstronautsWRData.push({
           Player: player['"player_name"'].slice(1, -1),
           Season: +player['"season"'].slice(1, -1),
+          altSeasonForIndividualPlayerArrays: "2023",
           Team: player['"Tm"'].slice(1, -1),
           Age: +player.age,
           NFLYr: player.careerYearIn2023WillBe,
@@ -485,6 +494,3685 @@ result.map((player) => {
     // console.log(player);
   }
 });
+
+const allIndividualPlayersObjectsArray = [];
+
+// console.log(fromPreviousAstronautsWRData);
+
+fromPreviousAstronautsWRData.map((pForpArrays) => {
+  // console.log(pForpArrays.Player);
+  const test = allIndividualPlayersObjectsArray.find(
+    (p) => p.name === pForpArrays.Player
+  );
+  if (test) {
+    // console.log("Player is in the array!");
+  } else {
+    // console.log("Player is not in the array.");
+    let tempPlayerObject = {
+      name: pForpArrays.Player,
+    };
+    allIndividualPlayersObjectsArray.push(tempPlayerObject);
+  }
+});
+
+fromPreviousAstronautsWRData.map((pForpArrays) => {
+  // console.log(pForpArrays.Player);
+  const test = allIndividualPlayersObjectsArray.find(
+    (p) => p.Season === pForpArrays.Season
+  );
+  if (test) {
+    // console.log("Player is in the array!");
+  } else {
+    // console.log("Player is not in the array.");
+
+    allIndividualPlayersObjectsArray.map((a) => {
+      if (a.name === pForpArrays.Player) {
+        if (pForpArrays.Season === "2000") {
+          // a["2000"] = pForpArrays;
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2000"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+
+        if (pForpArrays.Season === "2001") {
+          // a["2001"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2001"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2002") {
+          // a["2002"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2002"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2003") {
+          // a["2003"] = pForpArrays;
+
+          // a["2002"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2003"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2004") {
+          // a["2004"] = pForpArrays;
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2004"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2005") {
+          // a["2005"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2005"] = {
+            player: pForpArrays.Player,
+
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2006") {
+          // a["2006"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2006"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2007") {
+          // a["2007"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2007"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2008") {
+          // a["2008"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2008"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2009") {
+          // a["2009"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2009"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2010") {
+          // a["2010"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2010"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2011") {
+          // a["2011"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2011"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2012") {
+          // a["2012"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2012"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2013") {
+          // a["2013"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2013"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+
+        if (pForpArrays.Season === "2014") {
+          // a["2014"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2014"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+
+        if (pForpArrays.Season === "2015") {
+          // a["2015"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2015"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2016") {
+          // a["2016"] = pForpArrays;
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2016"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2017") {
+          // a["2017"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2017"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2018") {
+          // a["2018"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2018"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2019") {
+          // a["2019"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          // console.log(typeof +pForpArrays["Catch %"].slice(0, -1));
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+
+          // if (!+pForpArrays["Catch %"]) {
+          //   let tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+
+          a["2019"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2020") {
+          // a["2020"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2020"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2021") {
+          // a["2021"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2021"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2022") {
+          // a["2022"] = pForpArrays;
+
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2022"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.altSeasonForIndividualPlayerArrays === "2023") {
+          // console.log(pForpArrays);
+
+          // a["2023"] = pForpArrays;
+          // let tempSnaps = +pForpArrays.Snaps;
+          // let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          // if (!+pForpArrays.Snaps) {
+          //   tempSnaps = 0;
+          //   tempSnapsPerGame = 0;
+          // }
+          // let tempSnapPerecent = pForpArrays["Snap %"];
+          // if (!+pForpArrays["Snap %"]) {
+          //   tempSnapPerecent = "0%";
+          // }
+          // let tempRoutes = +pForpArrays.Routes;
+          // let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          // if (!+pForpArrays.Routes) {
+          //   tempRoutes = 0;
+          //   tempTargetsPerRoute = 0;
+          // }
+          // let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          // if (!+pForpArrays["Routes/G"]) {
+          //   tempRoutesPerGame = 0;
+          // }
+          // let tempCatchPercent = +pForpArrays["Catch %"];
+          // // if (!+pForpArrays["Catch %"]) {
+          // //   tempCatchPercent = "0%";
+          // // }
+          // let tempYPRR = +(
+          //   +pForpArrays["REC Yards"] / pForpArrays.Routes
+          // ).toFixed(2);
+          // if (!+pForpArrays.Routes) {
+          //   tempYPRR = 0;
+          // }
+          // // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          // let temp1DPerTarget = +(
+          //   +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          // ).toFixed(3);
+          // let temp1DPerRoute = +(
+          //   +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          // ).toFixed(3);
+          // if (!+pForpArrays.Routes) {
+          //   temp1DPerRoute = 0;
+          // }
+          // let tempAirYards = +pForpArrays["Air Yards"];
+          // let temp1DPerAirYard = +(
+          //   +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          // ).toFixed(3);
+          // pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          // if (!+pForpArrays["Air Yards"]) {
+          //   tempAirYards = 0;
+          //   temp1DPerAirYard = 0;
+          // }
+          // if (pForpArrays["1D/AirYard"] !== 0) {
+          //   let temp1DPerAirYard = +(
+          //     +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          //   ).toFixed(3);
+          //   pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          // }
+          // let tempContstedTargets = +pForpArrays["Contested Targets"];
+          // if (!+pForpArrays["Contested Targets"]) {
+          //   tempContstedTargets = 0;
+          // }
+          // if (!+pForpArrays.aDOT) {
+          //   pForpArrays.aDOT = 0;
+          // }
+          // if (!+pForpArrays["Contested Targets"]) {
+          //   pForpArrays["CT %"] = 0;
+          // }
+          // if (!+pForpArrays.RACR) {
+          //   pForpArrays.RACR = 0;
+          // }
+          // if (!+pForpArrays.WOPR) {
+          //   pForpArrays.WOPR = "0%";
+          // }
+          // let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          // if (!+pForpArrays["Targeted QB Rating"]) {
+          //   tempQBRating = 0;
+          // }
+          a["2023"] = {
+            player: pForpArrays.Player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: pForpArrays.NFLYr,
+            GP: +pForpArrays.GP,
+            PPR: pForpArrays.PPR,
+            ["PPR/G"]: pForpArrays["PPR/G"],
+            Snaps: pForpArrays.Snaps,
+            ["Snaps/GP"]: pForpArrays["Snaps/GP"],
+            ["Snap %"]: pForpArrays["Snap %"],
+            Routes: pForpArrays.Routes,
+            ["Routes/G"]: pForpArrays["Routes/G"],
+            Targets: pForpArrays.Targets,
+            ["Targets/G"]: pForpArrays["Targets/G"],
+            ["Target %"]: pForpArrays["Target %"],
+            ["TPRR"]: pForpArrays.TPRR,
+            //
+            ["Catch %"]: pForpArrays["Catch %"],
+            REC: pForpArrays.REC,
+            ["REC/G"]: pForpArrays["REC/G"],
+            ["REC Yards"]: pForpArrays["REC Yards"],
+            ["Yards/REC"]: pForpArrays["Yards/REC"],
+            ["YPRR"]: pForpArrays.YPRR,
+            ["REC TDs"]: pForpArrays["REC TDs"],
+            ["REC 1Ds"]: pForpArrays["REC 1Ds"],
+            ["1D/Target"]: pForpArrays["1D/Target"],
+            ["1D/RR"]: pForpArrays["1D/RR"],
+            ["Air Yards"]: pForpArrays["Air Yards"],
+            ["1D/AirYard"]: pForpArrays["1D/AirYard"],
+            aDOT: pForpArrays.aDOT,
+            ["CT %"]: pForpArrays["CT %"],
+            ["slot Rate"]: pForpArrays["slot Rate"],
+            ["REC EPA/G"]: pForpArrays["REC EPA/G"],
+            RACR: pForpArrays.RACR,
+            WOPR: (pForpArrays.WOPR / 100).toFixed(3),
+            ["QB Rating"]: pForpArrays["QB Rating"],
+          };
+        }
+        if (pForpArrays.Season === "2024") {
+          // a["2024"] = pForpArrays;
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2024"] = {
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2025") {
+          // a["2025"] = pForpArrays;
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2025"] = {
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2026") {
+          // a["2026"] = pForpArrays;
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2026"] = {
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+        if (pForpArrays.Season === "2027") {
+          // a["2027"] = pForpArrays;
+          let tempSnaps = +pForpArrays.Snaps;
+          let tempSnapsPerGame = +pForpArrays["Snaps/GP"];
+          if (!+pForpArrays.Snaps) {
+            tempSnaps = 0;
+            tempSnapsPerGame = 0;
+          }
+          let tempSnapPerecent = pForpArrays["Snap %"];
+          if (!+pForpArrays["Snap %"]) {
+            tempSnapPerecent = "0%";
+          }
+          let tempRoutes = +pForpArrays.Routes;
+          let tempTargetsPerRoute = +pForpArrays["Targets/Route"];
+          if (!+pForpArrays.Routes) {
+            tempRoutes = 0;
+            tempTargetsPerRoute = 0;
+          }
+          let tempRoutesPerGame = +pForpArrays["Routes/G"];
+          if (!+pForpArrays["Routes/G"]) {
+            tempRoutesPerGame = 0;
+          }
+          let tempCatchPercent = +pForpArrays["Catch %"].slice(0, -1);
+          // if (!+pForpArrays["Catch %"]) {
+          //   tempCatchPercent = "0%";
+          // }
+          let tempYPRR = +(
+            +pForpArrays["REC Yards"] / pForpArrays.Routes
+          ).toFixed(2);
+          if (!+pForpArrays.Routes) {
+            tempYPRR = 0;
+          }
+          // console.log(pForpArrays, typeof +pForpArrays['REC 1st Downs']);
+          let temp1DPerTarget = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Targets
+          ).toFixed(3);
+          let temp1DPerRoute = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays.Routes
+          ).toFixed(3);
+          if (!+pForpArrays.Routes) {
+            temp1DPerRoute = 0;
+          }
+          let tempAirYards = +pForpArrays["Air Yards"];
+          let temp1DPerAirYard = +(
+            +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+          ).toFixed(3);
+          pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          if (!+pForpArrays["Air Yards"]) {
+            tempAirYards = 0;
+            temp1DPerAirYard = 0;
+          }
+          if (pForpArrays["1D/AirYard"] !== 0) {
+            let temp1DPerAirYard = +(
+              +pForpArrays["REC 1st Downs"] / +pForpArrays["Air Yards"]
+            ).toFixed(3);
+            pForpArrays["1D/AirYard"] = +temp1DPerAirYard;
+          }
+          let tempContstedTargets = +pForpArrays["Contested Targets"];
+          if (!+pForpArrays["Contested Targets"]) {
+            tempContstedTargets = 0;
+          }
+          if (!+pForpArrays.aDOT) {
+            pForpArrays.aDOT = 0;
+          }
+          if (!+pForpArrays["Contested Targets"]) {
+            pForpArrays["CT %"] = 0;
+          }
+          if (!+pForpArrays.RACR) {
+            pForpArrays.RACR = 0;
+          }
+          if (!+pForpArrays.WOPR) {
+            pForpArrays.WOPR = "0%";
+          }
+          let tempQBRating = +pForpArrays["Targeted QB Rating"];
+          if (!+pForpArrays["Targeted QB Rating"]) {
+            tempQBRating = 0;
+          }
+          a["2027"] = {
+            player: pForpArrays.player,
+            Season: +pForpArrays.Season,
+            Age: +pForpArrays.Age,
+            NFLYr: +pForpArrays.CareerYr,
+            GP: +pForpArrays.GP,
+            PPR: +pForpArrays["PPR Total"],
+            ["PPR/G"]: +pForpArrays["PPG"],
+            Snaps: tempSnaps,
+            ["Snaps/GP"]: tempSnapsPerGame,
+            ["Snap %"]: +tempSnapPerecent.slice(0, -1),
+            Routes: tempRoutes,
+            ["Routes/G"]: tempRoutesPerGame,
+            Targets: +pForpArrays.Targets,
+            ["Targets/G"]: +pForpArrays["Targets/G"],
+            ["Target %"]: +pForpArrays["Target %"].slice(0, -1),
+            ["TPRR"]: tempTargetsPerRoute,
+            //
+            ["Catch %"]: +tempCatchPercent,
+            REC: +pForpArrays.REC,
+            ["REC/G"]: +pForpArrays["REC/G"],
+            ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["Yards/REC"]: +pForpArrays["Yards/REC"],
+            ["YPRR"]: tempYPRR,
+            ["REC TDs"]: +pForpArrays["REC TDs"],
+            ["REC 1Ds"]: +pForpArrays["REC 1st Downs"],
+            ["1D/Target"]: +temp1DPerTarget,
+            ["1D/RR"]: +temp1DPerRoute,
+            ["Air Yards"]: tempAirYards,
+            ["1D/AirYard"]: +temp1DPerAirYard,
+            aDOT: +pForpArrays.aDOT,
+            ["CT %"]: tempContstedTargets,
+            ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
+              2
+            ),
+            RACR: +pForpArrays.RACR,
+            WOPR: +(+pForpArrays.WOPR.slice(0, -1) / 100).toFixed(3),
+            ["QB Rating"]: tempQBRating,
+            ["Avg Seperation"]: +pForpArrays["AVG Seperation"],
+          };
+        }
+
+        // if (pForpArrays.Season === "2000") {
+        //   console.log(a["2000"], a["2001"]);
+        //   pForpArrays.nPlusOneSeason = a["2001"];
+        // }
+      }
+    });
+  }
+});
+
+fromPreviousAstronautsWRData.map((p) => {
+  allIndividualPlayersObjectsArray.map((a) => {
+    // console.log(a.name, p.Player);
+    if (a.name === p.Player) {
+      // console.log(p.Season);
+      // console.log(a);
+
+      if (p.Season === "2000") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2001"]) {
+          p.nextSeason = a["2001"];
+        }
+      }
+
+      if (p.Season === "2001") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2002"]) {
+          p.nextSeason = a["2002"];
+        }
+      }
+
+      if (p.Season === "2002") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2003"]) {
+          p.nextSeason = a["2003"];
+        }
+      }
+
+      if (p.Season === "2003") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2004"]) {
+          p.nextSeason = a["2004"];
+        }
+      }
+
+      if (p.Season === "2004") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2005"]) {
+          p.nextSeason = a["2005"];
+        }
+      }
+
+      if (p.Season === "2005") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2006"]) {
+          p.nextSeason = a["2006"];
+        }
+      }
+
+      if (p.Season === "2006") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2007"]) {
+          p.nextSeason = a["2007"];
+        }
+      }
+
+      if (p.Season === "2007") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2008"]) {
+          p.nextSeason = a["2008"];
+        }
+      }
+
+      if (p.Season === "2008") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2009"]) {
+          p.nextSeason = a["2009"];
+        }
+      }
+      if (p.Season === "2009") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2010"]) {
+          p.nextSeason = a["2010"];
+        }
+      }
+      if (p.Season === "2010") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2011"]) {
+          p.nextSeason = a["2011"];
+        }
+      }
+      if (p.Season === "2011") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2012"]) {
+          p.nextSeason = a["2012"];
+        }
+      }
+      if (p.Season === "2012") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2013"]) {
+          p.nextSeason = a["2013"];
+        }
+      }
+      if (p.Season === "2013") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2014"]) {
+          p.nextSeason = a["2014"];
+        }
+      }
+      if (p.Season === "2014") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2015"]) {
+          p.nextSeason = a["2015"];
+        }
+      }
+      if (p.Season === "2015") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2016"]) {
+          p.nextSeason = a["2016"];
+        }
+      }
+      if (p.Season === "2016") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2017"]) {
+          p.nextSeason = a["2017"];
+        }
+      }
+      if (p.Season === "2017") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2018"]) {
+          p.nextSeason = a["2018"];
+        }
+      }
+      if (p.Season === "2018") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2019"]) {
+          p.nextSeason = a["2019"];
+        }
+      }
+      if (p.Season === "2019") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2020"]) {
+          p.nextSeason = a["2020"];
+        }
+      }
+      if (p.Season === "2020") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2021"]) {
+          p.nextSeason = a["2021"];
+        }
+      }
+      if (p.Season === "2021") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2022"]) {
+          p.nextSeason = a["2022"];
+        }
+      }
+      if (p.Season === "2022") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2023"]) {
+          p.nextSeason = a["2023"];
+        }
+      }
+      if (p.Season === "2023") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2024"]) {
+          p.nextSeason = a["2024"];
+        }
+      }
+      if (p.Season === "2024") {
+        // console.log(p.Season);
+        // console.log(a["2001"]);
+        if (a["2025"]) {
+          p.nextSeason = a["2025"];
+        }
+      }
+    }
+  });
+});
+
+// console.log(allIndividualPlayersObjectsArray);
 
 fromPreviousAstronautsWRData.map((p) => {
   // console.log(p);
@@ -580,12 +4268,22 @@ fromPreviousAstronautsWRData.map((p) => {
     if (!+p["Targeted QB Rating"]) {
       p["QB Rating"] = 0;
     }
+    p["Avg Seperation"] = +p["AVG Seperation"];
+
+    // year N + 1 stuff below
+    if (p.nextSeason) {
+      p["N+1 PPR/G"] = p.nextSeason["PPR/G"];
+    }
+    if (!p.nextSeason) {
+      p["N+1 PPR/G"] = 0;
+    }
   }
   //
   // things I still want to add
 
   // year n + 1 PPR per game
-  //  'AVG Seperation'
+
+  //  'AVG Seperation' for 2023
 
   // player_id
 
@@ -596,6 +4294,13 @@ fromPreviousAstronautsWRData.map((p) => {
   //
 
   if (p.Season === 2023) {
+    // console.log(p);
+  }
+});
+
+fromPreviousAstronautsWRData.map((p) => {
+  // console.log(p);
+  if (p.Season === 2022) {
     // console.log(p);
   }
 });

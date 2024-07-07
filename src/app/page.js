@@ -82,6 +82,13 @@ export default function Home() {
       // flex: 1,
       maxWidth: 90,
     },
+    {
+      field: "N+1 PPR/G",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
 
     {
       field: "Snaps",
@@ -282,6 +289,13 @@ export default function Home() {
       // flex: 1,
       maxWidth: 100,
     },
+    {
+      field: "Avg Seperation",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
   ]);
 
   const gridOptions = {
@@ -308,3 +322,5 @@ export default function Home() {
     </main>
   );
 }
+
+// npm --max-old-space-size=8192 run dev
