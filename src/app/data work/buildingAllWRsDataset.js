@@ -4272,10 +4272,32 @@ fromPreviousAstronautsWRData.map((p) => {
 
     // year N + 1 stuff below
     if (p.nextSeason) {
-      p["N+1 PPR/G"] = p.nextSeason["PPR/G"];
+      p["N1 PPR/G"] = p.nextSeason["PPR/G"];
+      p["N1 GP"] = p.nextSeason["GP"];
+      p["N1 PPR"] = p.nextSeason["PPR"];
+      p["N1 Snaps"] = p.nextSeason["Snaps"];
+      p["N1 Snaps/G"] = p.nextSeason["Snaps/GP"];
+      p["N1 Snap %"] = p.nextSeason["Snap %"];
+      p["N1 Routes"] = p.nextSeason["Routes"];
+      p["N1 Routes/G"] = p.nextSeason["Routes/G"];
+      p["N1 Targets"] = p.nextSeason["Targets"];
+      p["N1 Targets/G"] = p.nextSeason["Targets/G"];
+      p["N1 Target %"] = p.nextSeason["Target %"];
+      p["N1 TPRR"] = p.nextSeason["TPRR"];
     }
     if (!p.nextSeason) {
-      p["N+1 PPR/G"] = 0;
+      p["N1 PPR/G"] = 0;
+      p["N1 GP"] = 0;
+      p["N1 PPR"] = 0;
+      p["N1 Snaps"] = 0;
+      p["N1 Snaps/G"] = 0;
+      p["N1 Snap %"] = 0;
+      p["N1 Routes"] = 0;
+      p["N1 Routes/G"] = 0;
+      p["N1 Targets"] = 0;
+      p["N1 Targets/G"] = 0;
+      p["N1 Target %"] = 0;
+      p["N1 TPRR"] = 0;
     }
   }
   //
