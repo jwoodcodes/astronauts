@@ -4284,6 +4284,21 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 Targets/G"] = p.nextSeason["Targets/G"];
       p["N1 Target %"] = p.nextSeason["Target %"];
       p["N1 TPRR"] = p.nextSeason["TPRR"];
+      p["N1 REC"] = p.nextSeason["REC"];
+      p["N1 REC Yards"] = p.nextSeason["REC Yards"];
+      p["N1 Yards/REC"] = p.nextSeason["Yards/REC"];
+      p["N1 YPRR"] = p.nextSeason["YPRR"];
+      p["N1 REC TDs"] = p.nextSeason["REC TDs"];
+      p["N1 REC 1Ds"] = p.nextSeason["REC 1Ds"];
+      p["N1 1D/Target"] = p.nextSeason["1D/Target"];
+      p["N1 1D/RR"] = p.nextSeason["1D/RR"];
+      p["N1 Air Yards"] = p.nextSeason["Air Yards"];
+      p["N1 1D/AirYard"] = p.nextSeason["1D/AirYard"];
+      p["N1 aDOT"] = p.nextSeason["aDOT"];
+      p["N1 slot Rate"] = p.nextSeason["slot Rate"];
+      p["N1 REC EPA/G"] = p.nextSeason["REC EPA/G"];
+      p["N1 RACR"] = p.nextSeason["RACR"];
+      // p["N1 WOPR"] = p.nextSeason["WOPR"];
     }
     if (!p.nextSeason) {
       p["N1 PPR/G"] = 0;
@@ -4298,6 +4313,21 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 Targets/G"] = 0;
       p["N1 Target %"] = 0;
       p["N1 TPRR"] = 0;
+      p["N1 REC"] = 0;
+      p["N1 REC Yards"] = 0;
+      p["N1 Yards/REC"] = 0;
+      p["N1 YPRR"] = 0;
+      p["N1 REC TDs"] = 0;
+      p["N1 REC 1Ds"] = 0;
+      p["N1 1D/Target"] = 0;
+      p["N1 1D/RR"] = 0;
+      p["N1 Air Yards"] = 0;
+      p["N1 1D/AirYard"] = 0;
+      p["N1 aDOT"] = 0
+      p["N1 slot Rate"] = 0
+      p["N1 REC EPA/G"] = 0
+      p["N1 RACR"] = 0
+      // p["N1 WOPR"] = 0
     }
   }
   //
