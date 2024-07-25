@@ -35,7 +35,6 @@ import { RSC_PREFETCH_SUFFIX } from "next/dist/lib/constants.js";
 
 import RVTeamOffensiveSnaps2023 from "../../../dataAndR_files/RVTeamOffensiveSnaps2023.js";
 import allTargetShareDataFor2023 from "../../../dataAndR_files/allWRTargetShareDataFor2023.js";
-import { Rationale } from "next/font/google/index.js";
 
 const curYear = new Date().getFullYear();
 
@@ -4269,6 +4268,7 @@ fromPreviousAstronautsWRData.map((p) => {
       p["QB Rating"] = 0;
     }
     p["Avg Seperation"] = +p["AVG Seperation"];
+    p["TM RecYards"] = +p["TM RecYards"];
 
     // year N + 1 stuff below
     if (p.nextSeason) {
@@ -4291,6 +4291,7 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 Yards/REC"] = p.nextSeason["Yards/REC"];
       p["N1 YPRR"] = p.nextSeason["YPRR"];
       p["N1 REC TDs"] = p.nextSeason["REC TDs"];
+      p["RecTD Diff"] = +(p["N1 REC TDs"] - p["REC TDs"]).toFixed(1);
       p["N1 REC 1Ds"] = p.nextSeason["REC 1Ds"];
       p["N1 1D/Target"] = p.nextSeason["1D/Target"];
       p["N1 1D/RR"] = p.nextSeason["1D/RR"];
