@@ -4273,6 +4273,7 @@ fromPreviousAstronautsWRData.map((p) => {
     // year N + 1 stuff below
     if (p.nextSeason) {
       p["N1 PPR/G"] = p.nextSeason["PPR/G"];
+      p["N to N1 PPR/G Diff"] = +(p["N1 PPR/G"] - p["PPR/G"]).toFixed(1);
       p["N1 GP"] = p.nextSeason["GP"];
       p["N1 PPR"] = p.nextSeason["PPR"];
       p["N1 Snaps"] = p.nextSeason["Snaps"];
@@ -4282,6 +4283,7 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 Routes/G"] = p.nextSeason["Routes/G"];
       p["N1 Targets"] = p.nextSeason["Targets"];
       p["N1 Targets/G"] = p.nextSeason["Targets/G"];
+      p["tar/G Diff"] = +(p["N1 Targets/G"] - p["Targets/G"]).toFixed(1);
       p["N1 Target %"] = p.nextSeason["Target %"];
       p["N1 TPRR"] = p.nextSeason["TPRR"];
       p["N1 REC"] = p.nextSeason["REC"];
@@ -4323,10 +4325,10 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 1D/RR"] = 0;
       p["N1 Air Yards"] = 0;
       p["N1 1D/AirYard"] = 0;
-      p["N1 aDOT"] = 0
-      p["N1 slot Rate"] = 0
-      p["N1 REC EPA/G"] = 0
-      p["N1 RACR"] = 0
+      p["N1 aDOT"] = 0;
+      p["N1 slot Rate"] = 0;
+      p["N1 REC EPA/G"] = 0;
+      p["N1 RACR"] = 0;
       // p["N1 WOPR"] = 0
     }
   }
