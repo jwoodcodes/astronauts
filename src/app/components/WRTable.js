@@ -307,6 +307,14 @@ export default function WRTable() {
       maxWidth: 100,
     },
     {
+      field: "TM RecYards",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+
+    {
       field: "N1 GP",
       filter: true,
       floatingFilter: true,
@@ -436,6 +444,14 @@ export default function WRTable() {
       // flex: 1,
       maxWidth: 130,
     },
+    {
+      field: "RecTD Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 130,
+    },
+
     {
       field: "N1 REC 1Ds",
       filter: true,
