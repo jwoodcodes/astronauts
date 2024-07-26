@@ -449,7 +449,7 @@ export default function WRTable() {
       filter: true,
       floatingFilter: true,
       // flex: 1,
-      maxWidth: 135,
+      maxWidth: 130,
     },
 
     {
