@@ -627,6 +627,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -752,6 +753,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -876,6 +878,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1002,6 +1005,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1123,6 +1127,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1246,6 +1251,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1370,6 +1376,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1494,6 +1501,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1618,6 +1626,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1742,6 +1751,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1866,6 +1876,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -1990,6 +2001,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2114,6 +2126,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2238,6 +2251,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2363,6 +2377,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2488,6 +2503,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2609,6 +2625,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2731,6 +2748,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2855,6 +2873,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -2982,6 +3001,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -3106,6 +3126,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -3230,6 +3251,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -3354,6 +3376,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -3592,6 +3615,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -3710,6 +3734,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -3828,6 +3853,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -3947,6 +3973,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             REC: +pForpArrays.REC,
             ["REC/G"]: +pForpArrays["REC/G"],
             ["REC Yards"]: +pForpArrays["REC Yards"],
+            ["REC Yards/G"]: +pForpArrays["REC Yards/G"],
             ["Yards/REC"]: +pForpArrays["Yards/REC"],
             ["YPRR"]: tempYPRR,
             ["REC TDs"]: +pForpArrays["REC TDs"],
@@ -4188,7 +4215,9 @@ fromPreviousAstronautsWRData.map((p) => {
       p.Snaps = 0;
       p["Snaps/GP"] = 0;
     }
-    p["Snap %"] = +p["Snap %"].slice(0, -1);
+    let tempSnapPercentOne = p["Snap %"].slice(0, -1);
+    let tempSnapPercentTwo = +tempSnapPercentOne;
+    p["Snap %"] = tempSnapPercentTwo;
     if (!+p["Snap %"]) {
       p["Snap %"] = 0;
     }
@@ -4218,6 +4247,11 @@ fromPreviousAstronautsWRData.map((p) => {
     p.REC = +p.REC;
     p["REC/G"] = +p["REC/G"];
     p["REC Yards"] = +p["REC Yards"];
+    p["REC Yards/G"] = +(p["REC Yards"] / +p.GP).toFixed(1);
+    if (!p["REC Yards"] || !+p.GP) {
+      p["REC Yards/G"] = 0;
+    }
+
     p["Yards/REC"] = +p["Yards/REC"];
     p["YPRR"] = +(+p["REC Yards"] / p.Routes).toFixed(2);
     if (!+p.Routes) {
@@ -4250,9 +4284,10 @@ fromPreviousAstronautsWRData.map((p) => {
     if (!+p["Contested Targets"]) {
       p["CT %"] = 0;
     }
+
     p["slot Rate"] = +p["Slot %"].slice(0, -1);
     // if (!+p["Slot %"]) {
-    //   p["slot Rate"] = "-";
+    //   p["slot Rate"] = 0;
     // }
     p["REC EPA/G"] = +(p["REC EPA"] / +p.GP).toFixed(2);
     p.RACR = +p.RACR;
@@ -4273,7 +4308,7 @@ fromPreviousAstronautsWRData.map((p) => {
     // year N + 1 stuff below
     if (p.nextSeason) {
       p["N1 PPR/G"] = p.nextSeason["PPR/G"];
-      p["N to N1 PPR/G Diff"] = +(p["N1 PPR/G"] - p["PPR/G"]).toFixed(1);
+      p["PPR/G Diff"] = +(p["N1 PPR/G"] - p["PPR/G"]).toFixed(1);
       p["N1 GP"] = p.nextSeason["GP"];
       p["N1 PPR"] = p.nextSeason["PPR"];
       p["N1 Snaps"] = p.nextSeason["Snaps"];
@@ -4285,24 +4320,51 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 Targets/G"] = p.nextSeason["Targets/G"];
       p["tar/G Diff"] = +(p["N1 Targets/G"] - p["Targets/G"]).toFixed(1);
       p["N1 Target %"] = p.nextSeason["Target %"];
+      p["Tar % Diff"] = +(p["N1 Target %"] - p["Target %"]).toFixed(1);
       p["N1 TPRR"] = p.nextSeason["TPRR"];
+      p["TPRR Diff"] = +(p["N1 TPRR"] - p["TPRR"]).toFixed(4);
       p["N1 REC"] = p.nextSeason["REC"];
+      p["REC Diff"] = +(p["N1 REC"] - p["REC"]).toFixed(1);
+      p["N1 REC/G"] = p.nextSeason["REC/G"];
+      p["REC/G Diff"] = +(p["N1 REC/G"] - p["REC/G"]).toFixed(1);
       p["N1 REC Yards"] = p.nextSeason["REC Yards"];
+      p["N1 REC Yards/G"] = +p.nextSeason["REC Yards/G"];
+
+      if (p["REC Yards/G"] && p["N1 REC Yards/G"]) {
+        p["REC Yards/G Diff"] = +(
+          p["N1 REC Yards/G"] - p["REC Yards/G"]
+        ).toFixed(1);
+      } else {
+        p["REC Yards/G Diff"] = 0;
+      }
+      // console.log(p["REC Yards/G Diff"]);
       p["N1 Yards/REC"] = p.nextSeason["Yards/REC"];
+      if (p["Yards/REC"] && p["N1 Yards/REC"]) {
+        p["Yards/REC Diff"] = +(p["N1 Yards/REC"] - p["Yards/REC"]).toFixed(1);
+      } else {
+        p["Yards/REC Diff"] = 0;
+      }
       p["N1 YPRR"] = p.nextSeason["YPRR"];
+      p["YPRR Diff"] = +(p["N1 YPRR"] - p["YPRR"]).toFixed(2);
       p["N1 REC TDs"] = p.nextSeason["REC TDs"];
       p["RecTD Diff"] = +(p["N1 REC TDs"] - p["REC TDs"]).toFixed(1);
       p["N1 REC 1Ds"] = p.nextSeason["REC 1Ds"];
       p["N1 1D/Target"] = p.nextSeason["1D/Target"];
+      p["1D/Target Diff"] = +(p["N1 1D/Target"] - p["1D/Target"]).toFixed(4);
       p["N1 1D/RR"] = p.nextSeason["1D/RR"];
+      p["1D/RR Diff"] = +(p["N1 1D/RR"] - p["1D/RR"]).toFixed(4);
       p["N1 Air Yards"] = p.nextSeason["Air Yards"];
       p["N1 1D/AirYard"] = p.nextSeason["1D/AirYard"];
+      p["1D/AirYard Diff"] = +(p["N1 1D/AirYard"] - p["1D/AirYard"]).toFixed(4);
       p["N1 aDOT"] = p.nextSeason["aDOT"];
+      p["aDOT Diff"] = +(p["N1 aDOT"] - p["aDOT"]).toFixed(1);
       p["N1 slot Rate"] = p.nextSeason["slot Rate"];
+      p["slot Rate Diff"] = +(p["N1 slot Rate"] - p["slot Rate"]).toFixed(1);
       p["N1 REC EPA/G"] = p.nextSeason["REC EPA/G"];
       p["N1 RACR"] = p.nextSeason["RACR"];
       // p["N1 WOPR"] = p.nextSeason["WOPR"];
     }
+
     if (!p.nextSeason) {
       p["N1 PPR/G"] = 0;
       p["N1 GP"] = 0;
@@ -4318,6 +4380,7 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 TPRR"] = 0;
       p["N1 REC"] = 0;
       p["N1 REC Yards"] = 0;
+      p["N1 REC Yards/G"] = 0;
       p["N1 Yards/REC"] = 0;
       p["N1 YPRR"] = 0;
       p["N1 REC TDs"] = 0;

@@ -36,3 +36,7 @@
   transform: translateY(0);
   background-color: var(--color-green-primary);
 }
+
+.positionTitle {
+  color: var(--color-white);
+}
