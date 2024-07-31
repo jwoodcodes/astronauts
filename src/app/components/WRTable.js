@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import WRPlayerStatsArray from "../data work/buildingAllWRsDataset";
-
+import styles from "../page.module.css";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
@@ -93,11 +93,11 @@ export default function WRTable() {
       maxWidth: 100,
     },
     {
-      field: "N to N1 PPR/G Diff",
+      field: "PPR/G Diff",
       filter: true,
       floatingFilter: true,
       // flex: 1,
-      maxWidth: 160,
+      maxWidth: 140,
     },
 
     {
@@ -191,6 +191,14 @@ export default function WRTable() {
       // flex: 1,
       maxWidth: 120,
     },
+    {
+      field: "REC Yards/G",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 130,
+    },
+
     {
       field: "Yards/REC",
       filter: true,
@@ -335,6 +343,14 @@ export default function WRTable() {
       // flex: 1,
       maxWidth: 120,
     },
+
+    {
+      field: "PPR/G Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 160,
+    },
     {
       field: "N1 Snaps",
       filter: true,
@@ -402,12 +418,27 @@ export default function WRTable() {
       maxWidth: 130,
     },
     {
+      field: "Tar % Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 130,
+    },
+    {
       field: "N1 TPRR",
       filter: true,
       floatingFilter: true,
       // flex: 1,
       maxWidth: 130,
     },
+    {
+      field: "TPRR Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 130,
+    },
+
     {
       field: "N1 REC",
       filter: true,
@@ -416,11 +447,48 @@ export default function WRTable() {
       maxWidth: 100,
     },
     {
+      field: "REC Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 100,
+    },
+    {
+      field: "N1 REC/G",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
+    },
+    {
+      field: "REC/G Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+
+    {
       field: "N1 REC Yards",
       filter: true,
       floatingFilter: true,
       // flex: 1,
       maxWidth: 140,
+    },
+    {
+      field: "N1 REC Yards/G",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 150,
+    },
+
+    {
+      field: "REC Yards/G Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 160,
     },
 
     {
@@ -431,12 +499,28 @@ export default function WRTable() {
       maxWidth: 140,
     },
     {
+      field: "Yards/REC Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+
+    {
       field: "N1 YPRR",
       filter: true,
       floatingFilter: true,
       // flex: 1,
       maxWidth: 120,
     },
+    {
+      field: "YPRR Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
+    },
+
     {
       field: "N1 REC TDs",
       filter: true,
@@ -467,11 +551,25 @@ export default function WRTable() {
       maxWidth: 140,
     },
     {
+      field: "1D/Target Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+    {
       field: "N1 1D/RR",
       filter: true,
       floatingFilter: true,
       // flex: 1,
       maxWidth: 120,
+    },
+    {
+      field: "1D/RR Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
     },
     {
       field: "N1 Air Yards",
@@ -480,6 +578,7 @@ export default function WRTable() {
       // flex: 1,
       maxWidth: 140,
     },
+
     {
       field: "N1 1D/AirYard",
       filter: true,
@@ -488,6 +587,14 @@ export default function WRTable() {
       maxWidth: 140,
     },
     {
+      field: "1D/AirYard Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+
+    {
       field: "N1 aDOT",
       filter: true,
       floatingFilter: true,
@@ -495,12 +602,30 @@ export default function WRTable() {
       maxWidth: 120,
     },
     {
+      field: "aDOT Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
+    },
+
+    {
       field: "N1 slot Rate",
       filter: true,
       floatingFilter: true,
       // flex: 1,
       maxWidth: 140,
     },
+    {
+      field: "slot Rate Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+
+
+    
     {
       field: "N1 REC EPA/G",
       filter: true,
@@ -538,10 +663,10 @@ export default function WRTable() {
 
   return (
     <div>
-      <h1>Filterable WR Database</h1>
+      <h1 className={styles.positionTitle}> WR </h1>
       <div
         className="ag-theme-quartz-dark" // applying the grid theme
-        style={{ height: 1000 }}
+        style={{ height: 1500 }}
       >
         <AgGridReact rowData={rowData} columnDefs={colDefs} />
       </div>
