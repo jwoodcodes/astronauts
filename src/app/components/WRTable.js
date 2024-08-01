@@ -321,6 +321,27 @@ export default function WRTable() {
       // flex: 1,
       maxWidth: 140,
     },
+    {
+      field: "Draft Year",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
+    },
+    {
+      field: "Draft Round",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+    {
+      field: "Draft Pick",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
+    },
 
     {
       field: "N1 GP",
@@ -624,8 +645,6 @@ export default function WRTable() {
       maxWidth: 140,
     },
 
-
-    
     {
       field: "N1 REC EPA/G",
       filter: true,
@@ -634,12 +653,28 @@ export default function WRTable() {
       maxWidth: 160,
     },
     {
+      field: "REC EPA/G Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 160,
+    },
+
+    {
       field: "N1 RACR",
       filter: true,
       floatingFilter: true,
       // flex: 1,
       maxWidth: 120,
     },
+    {
+      field: "RACR Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 120,
+    },
+
     // {
     //   field: "N1 WOPR",
     //   filter: true,

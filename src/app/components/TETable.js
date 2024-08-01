@@ -300,13 +300,13 @@ export default function TETable() {
       // flex: 1,
       maxWidth: 100,
     },
-    {
-      field: "WOPR",
-      filter: true,
-      floatingFilter: true,
-      // flex: 1,
-      maxWidth: 100,
-    },
+    // {
+    //   field: "WOPR",
+    //   filter: true,
+    //   floatingFilter: true,
+    //   // flex: 1,
+    //   maxWidth: 100,
+    // },
     {
       field: "QB Rating",
       filter: true,
@@ -653,6 +653,13 @@ export default function TETable() {
       maxWidth: 160,
     },
     {
+      field: "REC EPA/G Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 160,
+    },
+    {
       field: "N1 RACR",
       filter: true,
       floatingFilter: true,
@@ -660,12 +667,19 @@ export default function TETable() {
       maxWidth: 120,
     },
     {
-      field: "N1 WOPR",
+      field: "RACR Diff",
       filter: true,
       floatingFilter: true,
       // flex: 1,
       maxWidth: 120,
     },
+    // {
+    //   field: "N1 WOPR",
+    //   filter: true,
+    //   floatingFilter: true,
+    //   // flex: 1,
+    //   maxWidth: 120,
+    // },
   ]);
 
   const gridOptions = {

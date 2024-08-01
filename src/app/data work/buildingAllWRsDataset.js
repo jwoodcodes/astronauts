@@ -4304,6 +4304,16 @@ fromPreviousAstronautsWRData.map((p) => {
     }
     p["Avg Seperation"] = +p["AVG Seperation"];
     p["TM RecYards"] = +p["TM RecYards"];
+    console.log(p);
+    p["Draft Year"] = +p["Draft Yr"];
+    p["Draft Round"] = +p["Round"];
+    if (!+p["Round"]) {
+      p["Draft Round"] = 0;
+    }
+    p["Draft Pick"] = +p["Pick"];
+    if (!+p["Pick"]) {
+      p["Draft Pick"] = 0;
+    }
 
     // year N + 1 stuff below
     if (p.nextSeason) {
@@ -4361,7 +4371,9 @@ fromPreviousAstronautsWRData.map((p) => {
       p["N1 slot Rate"] = p.nextSeason["slot Rate"];
       p["slot Rate Diff"] = +(p["N1 slot Rate"] - p["slot Rate"]).toFixed(1);
       p["N1 REC EPA/G"] = p.nextSeason["REC EPA/G"];
+      p["REC EPA/G Diff"] = +(p["N1 REC EPA/G"] - p["REC EPA/G"]).toFixed(1);
       p["N1 RACR"] = p.nextSeason["RACR"];
+      p["RACR Diff"] = +(p["N1 RACR"] - p["REC RACR"]).toFixed(1);
       // p["N1 WOPR"] = p.nextSeason["WOPR"];
     }
 
