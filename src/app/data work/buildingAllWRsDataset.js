@@ -4304,7 +4304,7 @@ fromPreviousAstronautsWRData.map((p) => {
     }
     p["Avg Seperation"] = +p["AVG Seperation"];
     p["TM RecYards"] = +p["TM RecYards"];
-    console.log(p);
+    // console.log(p);
     p["Draft Year"] = +p["Draft Yr"];
     p["Draft Round"] = +p["Round"];
     if (!+p["Round"]) {
