@@ -1,5 +1,6 @@
 import teAstroid2024 from "../../../dataAndR_files/TEAstroid24.js";
 import PFR2023WRData from "../../../dataAndR_files/PFRWRData/23WRDataPFR.js";
+import te2023SupplamentalData from "../../../dataAndR_files/te2023SupplamentalData.js";
 
 const allIndividualPlayersObjectsArray = [];
 
@@ -1066,7 +1067,34 @@ teAstroid2024.map((p) => {
   p.Targets = +p.Targets;
   p["Targets/G"] = +p["Targets/G"];
   p["Target %"] = +p["Target%"].slice(0, -1);
+  if (p.Season === 2023) {
+    te2023SupplamentalData.map((a) => {
+      if (
+        p.Player === a['"Player"'].slice(1, -5) ||
+        p.Player === a['"Player"'].slice(1, -6) ||
+        p.Player === a['"Player"'].slice(1, -7) ||
+        p.Player === a['"Player"'].slice(1, -8)
+      ) {
+        // console.log(a);
+        // console.log(p.Player, a['"% TM"'].slice(1, -2));
+        let tempTargetPercentOne = a['"% TM"'].slice(1, -2);
+        let tempTargetPercentTwo = +tempTargetPercentOne;
+        // console.log(tempTargetPercentTwo);
+        p["Target %"] = tempTargetPercentTwo;
+        let tempYAC = a['"YAC"'].slice(1, -1);
+        p["YAC"] = +tempYAC;
+      }
+    });
+    if (p.Player === "TJ Hockenson") {
+      //   console.log("ran here hock");
+      p["YAC"] = 336;
+      p["Target %"] = 24.3;
+    }
+  }
   p["TPRR"] = +p["Targets/Route"];
+  if (p.Season === 2023) {
+    p["TPRR"] = +(p.Targets / p.Routes).toFixed(3);
+  }
   p.REC = +p.REC;
   p["REC/G"] = +p["REC/G"];
   p["REC Yards"] = +p["REC Yds"];
@@ -1075,10 +1103,13 @@ teAstroid2024.map((p) => {
     p["REC Yards/G"] = 0;
   }
   p["Yards/REC"] = +p["Yds/REC"];
-  p["YAC"] = +p["YAC"];
-  if (!+p["YAC"]) {
-    p["YAC"] = 0;
+  if (p.Season !== 2023) {
+    p["YAC"] = +p["YAC"];
+    if (!+p["YAC"]) {
+      p["YAC"] = 0;
+    }
   }
+
   p["YPRR"] = +(+p["REC Yards"] / p.routes).toFixed(2);
   if (!+p.routes || !p["Yards/REC"]) {
     p["YPRR"] = 0;
@@ -1112,8 +1143,19 @@ teAstroid2024.map((p) => {
     p["Air Yards"] = 0;
     p["1D/AirYard"] = 0;
   }
+  if (p.Season === 2023) {
+    let temp1DPerAirYard = +(+p["REC 1Ds"] / +p["Air Yards"]).toFixed(3);
+    p["1D/AirYard"] = +temp1DPerAirYard;
+    // console.log(+p["Target%"].slice(0, -1));
+
+    if (+p["Air Yards"] === 0 || +p["REC 1Ds"] === 0) {
+      p["1D/AirYard"] = 0;
+    }
+    // console.log(p["1D/AirYard"], +p["REC 1Ds"], +p["Air Yards"]);
+  }
   if (p["1D/AirYard"] !== 0) {
     let temp1DPerAirYard = +(+p["REC 1Ds"] / +p["Air Yards"]).toFixed(3);
+
     p["1D/AirYard"] = +temp1DPerAirYard;
   }
   p.aDOT = +p.aDOT;
@@ -1143,7 +1185,7 @@ teAstroid2024.map((p) => {
     p["Avg Seperation"] = 0;
   }
   p["TM RecYards"] = +p["TM RecYds"];
-//   console.log(p);
+  //   console.log(p);
   p["Draft Year"] = +p["Draft Year"];
   p["Draft Round"] = +p["Draft Round"];
   if (!+p["Draft Round"]) {
