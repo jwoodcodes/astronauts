@@ -393,13 +393,13 @@ export default function TETable() {
       maxWidth: 130,
     },
 
-    {
-      field: "N1 Snap %",
-      filter: true,
-      floatingFilter: true,
-      // flex: 1,
-      maxWidth: 130,
-    },
+    // {
+    //   field: "N1 Snap %",
+    //   filter: true,
+    //   floatingFilter: true,
+    //   // flex: 1,
+    //   maxWidth: 130,
+    // },
     {
       field: "N1 Routes",
       filter: true,

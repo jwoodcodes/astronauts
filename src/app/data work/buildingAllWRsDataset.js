@@ -481,6 +481,7 @@ result.map((player) => {
           aDOT: +tempADotOne,
           ["CT %"]: +pffPlayer.contested_targets,
           ["slot Rate"]: +pffPlayer.slot_rate,
+
           ["REC EPA/G"]: +(+player['"EPA"'] / +player['"Games"']).toFixed(2),
           RACR: +(+player['"RACR"']).toFixed(2),
           WOPR: +(+player['"WOPR"']).toFixed(2),
@@ -640,7 +641,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -766,7 +767,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -891,7 +892,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1018,7 +1019,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1139,6 +1140,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1264,7 +1266,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1389,7 +1391,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1514,7 +1516,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1639,7 +1641,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1764,7 +1766,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -1889,7 +1891,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2014,7 +2016,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2139,7 +2141,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2264,7 +2266,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2390,7 +2392,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2516,7 +2518,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2637,6 +2639,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2761,7 +2764,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -2886,7 +2889,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3014,7 +3017,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3139,7 +3142,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3264,7 +3267,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3389,7 +3392,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
-
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3511,6 +3514,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: pForpArrays.aDOT,
             ["CT %"]: pForpArrays["CT %"],
             ["slot Rate"]: pForpArrays["slot Rate"],
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: pForpArrays["REC EPA/G"],
             RACR: pForpArrays.RACR,
             WOPR: (pForpArrays.WOPR / 100).toFixed(3),
@@ -3627,6 +3631,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3746,6 +3751,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3865,6 +3871,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -3985,6 +3992,7 @@ fromPreviousAstronautsWRData.map((pForpArrays) => {
             aDOT: +pForpArrays.aDOT,
             ["CT %"]: tempContstedTargets,
             ["slot Rate"]: +pForpArrays["Slot %"].slice(0, -1),
+            ["TM RecYards"]: +pForpArrays["TM RecYards"],
             ["REC EPA/G"]: +(pForpArrays["REC EPA"] / +pForpArrays.GP).toFixed(
               2
             ),
@@ -4370,10 +4378,15 @@ fromPreviousAstronautsWRData.map((p) => {
       p["aDOT Diff"] = +(p["N1 aDOT"] - p["aDOT"]).toFixed(1);
       p["N1 slot Rate"] = p.nextSeason["slot Rate"];
       p["slot Rate Diff"] = +(p["N1 slot Rate"] - p["slot Rate"]).toFixed(1);
+      (p["N1 TM RecYards"] = +p.nextSeason["TM RecYards"]),
+        (p["TM RecYards Diff"] = +(
+          p["N1 TM RecYards"] - p["TM RecYards"]
+        ).toFixed(1));
+      // console.log(p["N1 TM RecYards"], p["TM RecYards"]);
       p["N1 REC EPA/G"] = p.nextSeason["REC EPA/G"];
       p["REC EPA/G Diff"] = +(p["N1 REC EPA/G"] - p["REC EPA/G"]).toFixed(1);
       p["N1 RACR"] = p.nextSeason["RACR"];
-      p["RACR Diff"] = +(p["N1 RACR"] - p["REC RACR"]).toFixed(1);
+      p["RACR Diff"] = +(p["N1 RACR"] - p.RACR).toFixed(1);
       // p["N1 WOPR"] = p.nextSeason["WOPR"];
     }
 

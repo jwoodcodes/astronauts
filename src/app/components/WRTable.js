@@ -488,6 +488,20 @@ export default function WRTable() {
       // flex: 1,
       maxWidth: 140,
     },
+    {
+      field: "N1 TM RecYards",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 140,
+    },
+    {
+      field: "TM RecYards Diff",
+      filter: true,
+      floatingFilter: true,
+      // flex: 1,
+      maxWidth: 150,
+    },
 
     {
       field: "N1 REC Yards",
