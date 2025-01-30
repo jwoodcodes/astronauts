@@ -36,6 +36,8 @@ import { RSC_PREFETCH_SUFFIX } from "next/dist/lib/constants.js";
 import RVTeamOffensiveSnaps2023 from "../../../dataAndR_files/RVTeamOffensiveSnaps2023.js";
 import allTargetShareDataFor2023 from "../../../dataAndR_files/allWRTargetShareDataFor2023.js";
 
+import wr23Week1PPRLeaders from "../../../dataAndR_files/wr23WeeklyPPRPointsLeaders/wr23Week1PPRLeaders.js";
+
 const curYear = new Date().getFullYear();
 
 PFR2000WRData.map((pfr00Player) => {
@@ -442,6 +444,32 @@ result.map((player) => {
         // if (!p.nextSeason) {
         //   p["N+1 PPR/G"] = "-";
         // }
+        player.top2Weeks = [];
+        player.top5Weeks = [];
+        player.top12Weeks = [];
+        player.top24Weeks - [];
+
+        wr23Week1PPRLeaders.map((wl) => {
+          // console.log(wl['"Player"'], player['"player_name"'].slice(1, -1));
+          if (wl['"Player"'] === player['"player_name"']) {
+            let tempOne = wl['"#"'].slice(1, -1);
+            let tempTwo = +tempOne;
+            // console.log(tempTwo);
+            if (tempTwo < 3) {
+              player.top2Weeks.push(1);
+            }
+            if (tempTwo < 6) {
+              player.top5Weeks.push(1);
+              // console.log(player);
+            }
+            if (tempTwo < 13) {
+              player.top12Weeks.push(1);
+            }
+            if (tempTwo < 25) {
+              player.top12Weeks.push(1);
+            }
+          }
+        });
 
         fromPreviousAstronautsWRData.push({
           Player: player['"player_name"'].slice(1, -1),
@@ -501,6 +529,7 @@ const allIndividualPlayersObjectsArray = [];
 
 fromPreviousAstronautsWRData.map((pForpArrays) => {
   // console.log(pForpArrays.Player);
+
   const test = allIndividualPlayersObjectsArray.find(
     (p) => p.name === pForpArrays.Player
   );
